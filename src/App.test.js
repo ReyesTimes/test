@@ -1,9 +1,9 @@
-import React from 'react';
-import { render } from '@testing-library/react';
-import App from './App';
+import Adapter from 'enzyme-adapter-react-16';
+import search from './services/search';
 
-test('renders learn react link', () => {
-  const { getByText } = render(<App />);
-  const linkElement = getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+describe('Methods', () => {
+  it('Test Search Request', async () => {
+    const { items } = await search('issues+react');
+    expect(Array.isArray(items)).toBe(true); 
+  });
 });

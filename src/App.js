@@ -1,25 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+
+import React, { useState } from 'react';
+import styled from 'styled-components';
+
+// C O M P O N E N T S
+import Form from './components/Form.js';
+import Instruction from './components/Instruction.js';
+import Issues from './components/Issues.js';
+
+const Main = styled.main`
+  padding: 20px;
+  width: 780px;
+  margin: 0 auto;
+`;
+
+const ResultText = styled.p`
+  font-style: italic;
+`;
+
 
 function App() {
+  const [list, setList] = useState([]);
+  const [loading, isLoading] = useState(false);
+  const [withData, setWithData] = useState(false);
+
+  function addToList(list) {
+    setList([...list]);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Main className="App">
+      <Instruction />
+      <Form addToList={addToList} isLoading={isLoading} setWithData={setWithData}/>
+      {!loading && withData && list.length > 0 && <ResultText>Resultados: {list.length}</ResultText> }
+      {!loading && withData && !list.length && <div>No hay resultados</div> }
+      {loading ? 'cargando' : <Issues list={list}/>}
+    </Main>
   );
 }
 
