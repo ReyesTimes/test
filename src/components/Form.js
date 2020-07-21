@@ -49,10 +49,14 @@ function Form({ addToList, isLoading, setWithData }) {
         cancelDelay();
         delay(search, e.target.value);
     }
+
+    function handleSubmit(e) {
+        e.preventDefault();
+    }
   
     return (
         <ContainerForm>
-            <form>
+            <form onSubmit={(e) => handleSubmit(e) }>
                 <Label htmlFor="search">Buscador <span aria-hidden="true">🤔</span></Label>
                 <Input type="text" id="search" name="search" placeholder="Ej: issue+react" className="search" onChange={e => onChangeEvnt(e)} />
             </form>
